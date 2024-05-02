@@ -28,4 +28,17 @@ class HolbertonCourse {
       throw new Error('Length must be a number.');
     }
   }
+
+  get students () {
+    return this._students;
+  }
+
+  set students (newStudents) {
+    if (Array.isArray(newStudents)) {
+      this._students = newStudents;
+    }
+    else {
+      throw new Error('Students must be an array.')
+    }
+  }
 }
