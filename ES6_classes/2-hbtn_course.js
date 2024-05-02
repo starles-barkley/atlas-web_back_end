@@ -22,7 +22,7 @@ class HolbertonCourse {
 
   set length(newLength) {
     if (typeof newLength === 'number') {
-      this ._length = newLength;
+      this._length = newLength;
     } else {
       throw new TypeError('Length must be a number.');
     }
