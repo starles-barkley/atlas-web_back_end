@@ -23,8 +23,7 @@ class HolbertonCourse {
   set length(newLength) {
     if (typeof newLength === 'number') {
       this ._length = newLength;
-    }
-    else {
+    } else {
       throw TypeError('Length must be a number.');
     }
   }
@@ -36,8 +35,7 @@ class HolbertonCourse {
   set students (newStudents) {
     if (Array.isArray(newStudents)) {
       this._students = newStudents;
-    }
-    else {
+    } else {
       throw TypeError('Students must be an array.')
     }
   }
