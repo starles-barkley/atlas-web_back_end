@@ -1,1 +1,1 @@
-ES6 readme
+ES6 basic readme
