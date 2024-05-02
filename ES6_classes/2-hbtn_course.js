@@ -15,4 +15,17 @@ class HolbertonCourse {
       throw new Error('Name must be a string.');
     }
   }
+
+  get length() {
+    return this._length;
+  }
+
+  set length(newLength) {
+    if (typeof newLength === 'number') {
+      this ._length = newLength;
+    }
+    else {
+      throw new Error('Length must be a number.');
+    }
+  }
 }
