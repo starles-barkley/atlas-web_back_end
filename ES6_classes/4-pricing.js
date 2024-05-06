@@ -17,3 +17,14 @@ export default class Pricing {
   get amount() {
     return this._amount;
   }
+  set currency(val) {
+    if (val instanceof Currency) {
+      this._currency = val;
+    } else {
+      throw TypeError('Currency must be a currency');
+    }
+  }
+
+  get currency() {
+    return this._currency;
+  }
