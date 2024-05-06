@@ -3,7 +3,7 @@ export default class Car {
     this.brand = brand;
     this.motor = motor;
     this.color = color;
-  } 
+  }
 
   set brand(val) {
     this._brand = val;
