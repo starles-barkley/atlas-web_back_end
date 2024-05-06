@@ -1,4 +1,4 @@
-export default Building {
+export default class Building {
   constructor(sqft) {
     if (this.constructor !== Building) {
       if (!(this.evacuationWarningMessage)) {
