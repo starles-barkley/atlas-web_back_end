@@ -7,3 +7,16 @@ export default Building {
     }
     this.sqft = sqft;
   }
+
+  set sqft(val) {
+    if (typeof (val) === 'number') {
+      this._sqft = val;
+    } else {
+      throw TypeError('sqft must be a number');
+    }
+  }
+
+  get sqft() {
+    return this._sqft;
+  }
+}
