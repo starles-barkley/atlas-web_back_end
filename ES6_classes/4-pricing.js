@@ -6,17 +6,18 @@ export default class Pricing {
     this.currency = currency;
   }
 
-  set amount (val) {
-    if (typeof (val) ===  'number') {
+  set amount(val) {
+    if (typeof (val) === 'number') {
       this._amount = val;
     } else {
-      throw TypeError("Amount must be a number");
+      throw TypeError('Amount must be a number');
     }
   }
 
   get amount() {
     return this._amount;
   }
+
   set currency(val) {
     if (val instanceof Currency) {
       this._currency = val;
@@ -32,7 +33,7 @@ export default class Pricing {
   displayFullPrice() {
     return `${this.amount} ${this.currency.name} (${this.currency.code})`;
   }
-  
+
   static convertPrice(amount, conversionRate) {
     if (typeof (amount) === 'number' && typeof (conversionRate) === 'number') {
       return amount * conversionRate;
