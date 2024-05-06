@@ -13,3 +13,12 @@ export default class SkyHighBuilding extends Building {
       throw TypeError('Floors must be a number');
     }
   }
+
+  get floors() {
+    return this._floors;
+  }
+
+  evacuationWarningMessage() {
+    return `Evacuate slowly the ${this.floors} floors`;
+  }
+}
