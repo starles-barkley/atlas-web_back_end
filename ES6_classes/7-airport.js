@@ -3,6 +3,10 @@ export default class Airport {
     this.name = name;
     this.code = code;
   }
+ 
+  toString() {
+    return `[object ${this.code}]`;
+  }
 
   set name(val) {
     if (typeof (val) === 'string') {
@@ -27,8 +31,4 @@ export default class Airport {
   get code() {
     return this._code;
   }
-}
-
-toString() {
-  return `[object ${this.code}]`;
 }
