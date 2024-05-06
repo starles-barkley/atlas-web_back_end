@@ -28,3 +28,15 @@ export default class Pricing {
   get currency() {
     return this._currency;
   }
+
+  displayFullPrice() {
+    return `${this.amount} ${this.currency.name} (${this.currency.code})`;
+  }
+  
+  static convertPrice(amount, conversionRate) {
+    if (typeof (amount) === 'number' && typeof (conversionRate) === 'number') {
+      return amount * conversionRate;
+    }
+    throw TypeError('Amount and conversion rate must be numbers');
+  }
+}
