@@ -1,3 +1,3 @@
 export default function hasValuesFromArray(set, array) {
-  return new Boolean
+  return array.every(value);
 }
