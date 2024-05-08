@@ -5,6 +5,6 @@ export default groceriesList() {
     ['Pasta', 1],
     ['Rice', 1],
     ['Banana', 5],
-  ])
-  return groceries
+  ]);
+  return groceries;
 }
