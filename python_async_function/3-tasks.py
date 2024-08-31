@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-'''
-This script defines a regular function that creates and
+''' This script defines a regular function that creates and
 returns an asyncio.Task for the `wait_random` coroutine,
 which waits for a random delay between 0 and max_delay seconds.'''
 
