@@ -6,4 +6,4 @@ from typing import List, Tuple, Any
 
 def element_length(lst: List[Any]) -> List[Tuple[Any, int]]:
     '''Return a list of tuples with each sequence and its length.'''
-    return [(i, len(i)) for i in lst]\
+    return [(i, len(i)) for i in lst]
