@@ -14,7 +14,8 @@ class MRUCache(BaseCaching):
     def put(self, key, item):
         '''Add an item to the cache using the MRU algorithm'''
         if key is not None and item is not None:
-            if key not in self.cache_data and len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+            if key not in self.cache_data and len(
+              self.cache_data) >= BaseCaching.MAX_ITEMS:
                 mru_key = self.access_order.pop()
                 del self.cache_data[mru_key]
                 print(f"DISCARD: {mru_key}")
