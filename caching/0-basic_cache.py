@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 '''Basic_cache script'''
 
-class BaseCaching:
-    def __init__(self):
-        self.cache_data = {}
+BaseCaching = __import__('base_caching').BaseCaching
 
 class BasicCache(BaseCaching):
     def put(self, key, item):
