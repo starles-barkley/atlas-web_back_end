@@ -5,7 +5,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class LRUCache(BaseCaching):
-  '''Caching system that follows the LRU alogrithm'''
+    '''Caching system that follows the LRU alogrithm'''
     def __init__(self):
         '''Initialize the LRU cache'''
         super().__init__()
