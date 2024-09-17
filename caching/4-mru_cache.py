@@ -5,6 +5,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class MRUCache(BaseCaching):
+    '''Caching system that follows the MRU alogrithm'''
     def __init__(self):
         '''Initialize the MRU cache'''
         super().__init__()
