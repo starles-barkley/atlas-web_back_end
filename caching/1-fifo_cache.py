@@ -14,8 +14,8 @@ class FIFOCache(BaseCaching):
     def put(self, key, item):
         """Add an item to the cache using the FIFO algorithm"""
         if key is not None and item is not None:
-            if key not in self.cache_data 
-            and len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+            if key not in self.cache_data and len(
+              self.cache_data) >= BaseCaching.MAX_ITEMS:
                 first_key = self.keys_order.pop(0)
                 del self.cache_data[first_key]
                 print(f"DISCARD: {first_key}")
