@@ -5,8 +5,9 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class LIFOCache(BaseCaching):
+    '''Caching system that follows FIFO algorithm'''
     def __init__(self):
-        """Initialize the LIFO cache."""
+        '''Initialize the LIFO cache'''
         super().__init__()
         self.last_key = None
 
