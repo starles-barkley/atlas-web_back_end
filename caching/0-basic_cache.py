@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 '''Basic_cache script'''
 
-class BasicCache():
+class BaseCaching:
+    def __init__(self):
+        self.cache_data = {}
+
+class BasicCache(BaseCaching):
     def put(self, key, item):
         if key is not None and item is not None:
             self.cache_data[key] = item
