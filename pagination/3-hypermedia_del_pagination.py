@@ -6,6 +6,7 @@ Deletion-resilient hypermedia pagination
 import csv
 import math
 from typing import List
+index_range = __import__('0-simple_helper_function').index_range
 
 
 class Server:
