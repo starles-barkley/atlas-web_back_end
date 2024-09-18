@@ -17,9 +17,10 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        original_message = super().format(record)
-        """Format log record with redactions
+        """Format the log record with redactions
         """
+        original_message = super().format(record)
+        
         return filter_datum(self.fields,
                             self.REDACTION,
                             original_message,
