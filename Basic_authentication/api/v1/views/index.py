@@ -32,7 +32,7 @@ def unauthorized():
     abort(401)
 
 
-@app_views.route('/api/v1/forbidden', methods=['GET'], strict_slashes=False)
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
 def forbidden_endpoint():
     """ Endpoint to trigger 403 error """
     abort(403)
