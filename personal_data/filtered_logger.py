@@ -20,7 +20,6 @@ class RedactingFormatter(logging.Formatter):
         """Format the log record with redactions
         """
         original_message = super().format(record)
-        
         return filter_datum(self.fields,
                             self.REDACTION,
                             original_message,
