@@ -37,13 +37,11 @@ def filter_datum(fields: List[str],
 
 def get_logger() -> logging.Logger:
     '''Returns a configured logger for user data'''
-    logger = logging.getLogger("user_data")
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
+    hdlr = logging.StreamHandler()
+    hdlr.setFormatter(RedactingFormatter(PII_FIELDS))
 
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(RedactingFormatter(fields=PII_FIELDS))
-
-    logger.addHandler(stream_handler)
-
-    return logger
+    user_data = logging.getLogger('user_data')
+    user_data.setLevel(logging.INFO)
+    user_data.addHandler(hdlr)
+    user_data.propagate = False
+    return user_data
