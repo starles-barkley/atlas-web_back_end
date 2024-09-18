@@ -33,3 +33,17 @@ def filter_datum(fields: List[str],
     '''Obfuscates fields in a log message'''
     pattern: str = f"({'|'.join(fields)})=([^\\{separator}]*)"
     return re.sub(pattern, lambda m: f"{m.group(1)}={redaction}", message)
+
+
+def get_logger() -> logging.Logger:
+    '''Returns a configured logger for user data'''
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(RedactingFormatter(fields=PII_FIELDS))
+
+    logger.addHandler(stream_handler)
+
+    return logger
