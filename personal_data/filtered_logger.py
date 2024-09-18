@@ -4,6 +4,8 @@ import re
 from typing import List
 import logging
 
+PII_FIELDS = ('phone', 'name', 'ssn', 'password', 'email')
+
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
