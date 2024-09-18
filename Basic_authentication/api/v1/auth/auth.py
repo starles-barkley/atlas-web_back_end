@@ -8,7 +8,7 @@ class Auth:
     """ Template class for authentication system. """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """ Determines if the path requires authentication. 
+        """ Determines if the path requires authentication.
             For now, returns False.
         """
         return False
