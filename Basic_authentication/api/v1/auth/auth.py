@@ -3,7 +3,6 @@
 from typing import List, TypeVar
 from flask import request
 
-
 class Auth:
     """ Template class for authentication system. """
 
@@ -27,10 +26,11 @@ class Auth:
         return True
 
     def authorization_header(self, request=None) -> str:
-        """ Retrieves the authorization header from the request.
-            For now, returns None.
-        """
-        return None
+        """ Retrieves the authorization header from the request. """
+        if request is None:
+            return None
+
+        return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ Retrieves the current user from the request.
