@@ -68,3 +68,28 @@ def get_db() -> MySQLConnection:
         host=host,
         database=database
     )
+
+
+def main() -> None:
+    '''Main function that retrieves and logs user data from the database'''
+    db_connection = get_db()
+    cursor = db_connection.cursor()
+
+    query = ("SELECT name, email, phone, ssn, password, ip, last_login, "
+             "user_agent FROM users;")
+    cursor.execute(query)
+
+    logger = get_logger()
+
+    for row in cursor.fetchall():
+        message = (f"name={row[0]}; email={row[1]}; phone={row[2]}; "
+                   f"ssn={row[3]}; password={row[4]}; ip={row[5]}; "
+                   f"last_login={row[6]}; user_agent={row[7]};")
+        logger.info(message)
+
+    cursor.close()
+    db_connection.close()
+
+
+if __name__ == "__main__":
+    main()
