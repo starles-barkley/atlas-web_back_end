@@ -26,9 +26,43 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        '''Retrieve info from the csv'''
-        pass
+        """Retrieve data from CSV file
+        """
+        assert type(page) is int
+        assert type(page_size) is int
+        assert page > 0
+        assert page_size > 0
+        data = []
+        idx = index_range(page, page_size)
+        if idx[0] < len(self.dataset()):
+            for i in range(idx[0], idx[1]):
+                data.append(self.dataset()[i])
+        return data
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
-        '''A different method I'll add more doc for'''
-        pass
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+        '''Retrieve info with pagination details'''
+        if page < 1 or page_size < 1:
+            return {
+                'page': page,
+                'page_size': page_size,
+                'data': [],
+                'next_page': None,
+                'prev_page': None,
+                'total_pages': 0
+            }
+
+        dataset = self.dataset()
+        total_data = len(dataset)
+        total_pages = math.ceil(total_data / page_size)
+        start, end = index_range(page, page_size)
+
+        data = dataset[start:end]
+
+        return {
+            'page': page,
+            'page_size': page_size,
+            'data': data,
+            'next_page': page + 1 if page < total_pages else None,
+            'prev_page': page - 1 if page > 1 else None,
+            'total_pages': total_pages
+        }
