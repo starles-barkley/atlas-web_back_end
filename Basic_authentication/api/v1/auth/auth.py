@@ -3,6 +3,7 @@
 from typing import List, TypeVar
 from flask import request
 
+
 class Auth:
     """ Template class for authentication system. """
 
