@@ -26,11 +26,15 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        '''Retrieve info from the csv'''
-        if page < 1 or page_size < 1:
-            return []
-
-        start, end = index_range(page, page_size)
-        dataset = self.dataset()
-
-        return dataset[start:end]
+        """Retrieve data from CSV file
+        """
+        assert type(page) is int
+        assert type(page_size) is int
+        assert page > 0
+        assert page_size > 0
+        data = []
+        idx = index_range(page, page_size)
+        if idx[0] < len(self.dataset()):
+            for i in range(idx[0], idx[1]):
+                data.append(self.dataset()[i])
+        return data
