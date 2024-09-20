@@ -12,7 +12,7 @@ class BasicAuth(Auth):
         """
         Extracts the Base64 part of the Authorization
         header for Basic Authentication.
-        
+
         Args:
             authorization_header (str): The Authorization
             header string.
