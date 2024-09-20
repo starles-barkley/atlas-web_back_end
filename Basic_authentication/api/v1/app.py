@@ -12,7 +12,6 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
-# Initialize the auth variable
 auth = None
 AUTH_TYPE = getenv('AUTH_TYPE')
 
@@ -50,8 +49,3 @@ def before_request():
 
     if auth.current_user(request) is None:
         abort(403)
-
-if __name__ == "__main__":
-    host = getenv("API_HOST", "0.0.0.0")
-    port = getenv("API_PORT", "5000")
-    app.run(host=host, port=port)
