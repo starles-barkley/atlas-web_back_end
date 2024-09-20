@@ -67,32 +67,25 @@ class Server:
             'total_pages': total_pages
         }
 
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        '''Retrieve data from the dataset based on the starting index and page size.'''
-        if index is None:
-            index = 0
-        assert index >= 0, "Index must be a non-negative integer."
-        assert page_size > 0, "Page size must be a positive integer."
-
-        dataset = self.dataset()
-        total_data = len(dataset)
-        
-        start_index = index
-        end_index = index + page_size
-
-        if start_index >= total_data:
-            return {
-                'index': start_index,
-                'next_index': None,
-                'page_size': page_size,
-                'data': []
-            }
-
-        data = dataset[start_index:end_index]
-
-        return {
-            'index': start_index,
-            'next_index': end_index if end_index < total_data else None,
-            'page_size': page_size,
-            'data': data
-        }
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> dict:
+        """Get indexed dataset
+        """
+        assert type(index) is int or type(index) is None
+        dataset = self.indexed_dataset()
+        assert index >= 0 and index <= len(dataset)
+        info = {}
+        next_index = index+page_size
+        data = []
+        i = index
+        while i < next_index and i < len(dataset):
+            if i in dataset:
+                data.append(dataset[i])
+                i += 1
+            else:
+                next_index += 1
+                i += 1
+        info['index'] = index
+        info['data'] = data
+        info['page_size'] = page_size
+        info['next_index'] = next_index
+        return info
