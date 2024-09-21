@@ -40,8 +40,7 @@ class Auth:
         return None
     
     def session_cookie(self, request=None):
-        """
-        Retrieves the session cookie from the request.
+        """ Retrieves the session cookie from the request.
 
         Args:
             request: The Flask request object.
@@ -49,8 +48,8 @@ class Auth:
         Returns:
             str: The session cookie value or None if not found.
         """
+
         if request is None:
             return None
-        
-        session_name = getenv('SESSION_NAME', '_my_session_id')
-        return request.cookies.get(session_name)
+        cookie = request.cookies.get(os.getenv('SESSION_NAME'))
+        return cookie
