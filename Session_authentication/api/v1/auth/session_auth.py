@@ -10,7 +10,8 @@ class SessionAuth(Auth):
     Session Authorization class that manages session-based authentication.
 
     Attributes:
-        user_id_by_session_id (dict): Stores session IDs as keys and user IDs as values.
+        user_id_by_session_id (dict): Stores session IDs
+        as keys and user IDs as values.
     """
 
     user_id_by_session_id = {}
@@ -20,10 +21,12 @@ class SessionAuth(Auth):
         Create a session ID for a user.
 
         Args:
-            user_id (str): The ID of the user for whom the session is being created.
+            user_id (str): The ID of the user for whom the
+            session is being created.
 
         Returns:
-            str: The generated session ID, or None if the user_id is invalid.
+            str: The generated session ID, or None if the
+            user_id is invalid.
         """
         if user_id is None or not isinstance(user_id, str):
             return None
@@ -36,7 +39,8 @@ class SessionAuth(Auth):
         Retrieve the User ID based on a given Session ID.
 
         Args:
-            session_id (str): The session ID used to retrieve the associated user ID.
+            session_id (str): The session ID used to retrieve
+            the associated user ID.
 
         Returns:
             str: The user ID if the session ID is valid, or None if invalid.
