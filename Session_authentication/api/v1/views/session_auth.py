@@ -37,8 +37,6 @@ def login():
     '/auth_session/logout/',
     methods=['DELETE'],
     strict_slashes=False)
-
-
 def logout():
     """ Deletes the user session / logout """
 
