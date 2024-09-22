@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-"""Flask App Module"""
+"""Flask App Module
+"""
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, abort, request
+from auth import Auth
 
+AUTH = Auth()
 app = Flask(__name__)
 
 
-@app.route("/", methods=["GET"])
-def home():
+@app.route('/', methods=['GET'], strict_slashes=False)
+def index():
     """Return a welcome message in JSON format."""
     return jsonify({"message": "Bienvenue"})
 
@@ -26,4 +29,4 @@ def register_user():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port="5000")
