@@ -9,8 +9,6 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
 
-from user import Base, User
-
 
 class DB:
     """DB class
@@ -44,13 +42,13 @@ class DB:
         self._session.refresh(new_user)
         return new_user
 
-     def find_user_by(self, **kwargs) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """Find a user by the given keyword arguments.
         """
-        try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
-        except NoResultFound:
-            raise NoResultFound("No user found matching the given criteria.")
-        except MultipleResultsFound:
-            raise InvalidRequestError("Multiple users found with the same criteria.")
+        if len(kwargs) == 1:
+            if list(kwargs.keys())[0] not in User.__dict__:
+                raise InvalidRequestError
+        q = self._session.query(User).filter_by(**kwargs).first()
+        if q is None:
+            raise NoResultFound
+        return q
