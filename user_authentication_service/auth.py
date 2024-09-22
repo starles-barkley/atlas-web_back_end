@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Auth Module"""
+"""auth module
+"""
 
 import bcrypt
 from db import DB
@@ -24,6 +25,17 @@ class Auth:
         except NoResultFound:
             hashed = _hash_password(password)
             return self._db.add_user(email, hashed)
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """Validate login credentials by checking the provided email and password.
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            checked_pw = password.encode('utf-8')
+            hashed_pw = user.hashed_password
+            return bcrypt.checkpw(checked_pw, hashed_pw)
+        except NoResultFound:
+            return False
 
 
 def _hash_password(password: str) -> bytes:
