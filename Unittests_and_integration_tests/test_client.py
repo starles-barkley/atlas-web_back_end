@@ -2,6 +2,7 @@
 '''Test module for client'''
 import unittest
 from unittest.mock import patch, PropertyMock
+from parameterized import parameterized
 from client import GithubOrgClient
 
 
@@ -27,7 +28,6 @@ class TestGithubOrgClient(unittest.TestCase):
         }
 
         client = GithubOrgClient("google")
-
         result = client._public_repos_url
 
         self.assertEqual(result, "https://api.github.com/orgs/google/repos")
@@ -44,14 +44,24 @@ class TestGithubOrgClient(unittest.TestCase):
         ]
 
         client = GithubOrgClient("google")
-
         result = client.public_repos()
 
         self.assertEqual(result, ["repo1", "repo2", "repo3"])
-
         mock_public_repos_url.assert_called_once()
+        mock_get_json.assert_called_once_with(
+            "https://api.github.com/orgs/google/repos"
+        )
 
-        mock_get_json.assert_called_once_with("https://api.github.com/orgs/google/repos")
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False),
+        ({}, "my_license", False)
+    ])
+    def test_has_license(self, repo, license_key, expected):
+        """Test that GithubOrgClient.has_license returns the expected result."""
+        client = GithubOrgClient("google")
+        result = client.has_license(repo, license_key)
+        self.assertEqual(result, expected)
 
 
 if __name__ == '__main__':
