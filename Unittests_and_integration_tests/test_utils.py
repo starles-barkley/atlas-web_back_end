@@ -17,6 +17,13 @@ class TestAccessNestedMap(unittest.TestCase):
         """Test access_nested_map returns the expected value."""
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
+    def test_access_nested_map_exception(self, nested_map, path):
+        """Test access_nested_map raises KeyError with correct message."""
+        with self.assertRaises(KeyError) as cm:
+            access_nested_map(nested_map, path)
+
+        self.assertEqual(str(cm.exception), f"'{path[-1]}'")
+
 
 if __name__ == '__main__':
     unittest.main()
