@@ -92,3 +92,7 @@ class Cache:
         call_count = len(inputs)
 
         print(f"{method_name} was called {call_count} times:")
+
+        # Loop through inputs and outputs together using zip and print them
+        for input_args, output in zip(inputs, outputs):
+            print(f"{method_name}(*{input_args.decode('utf-8')}) -> {output.decode('utf-8')}")
