@@ -18,3 +18,5 @@ BEGIN
     SET average_score = average_score
     WHERE id = user_id;
 END$$
+
+DELIMITER ;
