@@ -1,3 +1,4 @@
+#!/bin/user/env python3
 import redis
 import uuid
 from typing import Union, Callable, Optional
@@ -93,6 +94,5 @@ class Cache:
 
         print(f"{method_name} was called {call_count} times:")
 
-        # Loop through inputs and outputs together using zip and print them
         for input_args, output in zip(inputs, outputs):
             print(f"{method_name}(*{input_args.decode('utf-8')}) -> {output.decode('utf-8')}")
