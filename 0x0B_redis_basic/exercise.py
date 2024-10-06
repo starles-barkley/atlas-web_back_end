@@ -1,22 +1,33 @@
-#!/usr/bin/env python3
-
 import redis
 import uuid
 from typing import Union, Callable, Optional
 import functools
 
 def count_calls(method: Callable) -> Callable:
+    """A decorator that increments a counter in Redis every time the method is called."""
+    @functools.wraps(method)
+    def wrapper(self, *args, **kwargs):
+        key = method.__qualname__
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
+
+def call_history(method: Callable) -> Callable:
     """
-    A decorator that increments a counter in Redis every time the method is called.
+    A decorator that stores the input arguments and outputs of a function in Redis lists.
     """
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
-        """Wraps the original method and increments the call count in Redis."""
-        key = method.__qualname__
-        
-        self._redis.incr(key)
-        
-        return method(self, *args, **kwargs)
+        input_key = f"{method.__qualname__}:inputs"
+        output_key = f"{method.__qualname__}:outputs"
+
+        self._redis.rpush(input_key, str(args))
+
+        output = method(self, *args, **kwargs)
+
+        self._redis.rpush(output_key, str(output))
+
+        return output
 
     return wrapper
 
@@ -27,6 +38,7 @@ class Cache:
         self._redis.flushdb()
 
     @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         Store data in Redis with a randomly generated key.
@@ -47,13 +59,19 @@ class Cache:
         return value
 
     def get_str(self, key: str) -> Optional[str]:
-        """
-        Retrieve a string from Redis by key, converting the byte data to a UTF-8 string.
-        """
+        """Retrieve a string from Redis by key, converting the byte data to a UTF-8 string."""
         return self.get(key, lambda d: d.decode('utf-8'))
 
     def get_int(self, key: str) -> Optional[int]:
-        """
-        Retrieve an integer from Redis by key, converting the byte data to an integer.
-        """
+        """Retrieve an integer from Redis by key, converting the byte data to an integer."""
         return self.get(key, lambda d: int(d))
+
+    def get_call_history(self, method_name: str):
+        """Retrieve the call history of a method's inputs and outputs from Redis."""
+        inputs_key = f"{method_name}:inputs"
+        outputs_key = f"{method_name}:outputs"
+        
+        inputs = self._redis.lrange(inputs_key, 0, -1)
+        outputs = self._redis.lrange(outputs_key, 0, -1)
+
+        return {"inputs": inputs, "outputs": outputs}
