@@ -75,3 +75,20 @@ class Cache:
         outputs = self._redis.lrange(outputs_key, 0, -1)
 
         return {"inputs": inputs, "outputs": outputs}
+        
+    def replay(method: Callable) -> None:
+        """
+        Display the history of calls of a particular function, showing inputs and outputs.
+        """
+        self = method.__self__
+        method_name = method.__qualname__
+
+        inputs_key = f"{method_name}:inputs"
+        outputs_key = f"{method_name}:outputs"
+
+        inputs = self._redis.lrange(inputs_key, 0, -1)
+        outputs = self._redis.lrange(outputs_key, 0, -1)
+
+        call_count = len(inputs)
+
+        print(f"{method_name} was called {call_count} times:")
