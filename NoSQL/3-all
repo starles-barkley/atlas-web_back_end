@@ -1,0 +1,2 @@
+// Find command for MongoDB
+db.school.find()
