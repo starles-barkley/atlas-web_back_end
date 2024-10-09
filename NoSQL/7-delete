@@ -1,0 +1,2 @@
+// Delete Command for MongoDB
+db.school.deleteOne({name:"Holberton school"})
