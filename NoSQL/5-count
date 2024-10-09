@@ -1,0 +1,2 @@
+// Count Command for MongoDB
+db.school.countDocuments()
